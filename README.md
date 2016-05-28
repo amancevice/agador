@@ -102,3 +102,48 @@ git clone https://github.com/amancevice/agador.git
 cd agador/example
 ./example.sh
 ```
+
+Output:
+
+```
+Building example client Docker image
+Creating agador docker bridge network
+Starting influxdb
+Starting dynamodb
+Starting agador with config:
+
+--- # Agador Metaervice Configuration
+influxdb:
+  module:
+    name: "influxdb"
+  class: "InfluxDBClient"
+  args:
+    host: "influxdb.service.consul"
+    port: 8086
+
+dynamodb:
+  module:
+    name: "boto3"
+  class: "resource"
+  args:
+    service_name: "dynamodb"
+    endpoint_url: "http://dynamodb:8000/"
+    region_name: "us-east-1"
+
+Running example Python:
+
+import agador
+
+influx = agador.service("influxdb", host="agador")
+dynamo = agador.service("dynamodb", host="agador")
+
+print influx
+print dynamo
+
+Output:
+
+<influxdb.client.InfluxDBClient object at 0x7f7f781abfd0>
+dynamodb.ServiceResource()
+
+Cleaning up
+```
