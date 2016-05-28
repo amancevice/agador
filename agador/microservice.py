@@ -15,7 +15,6 @@ import furi
 from envopt import envopt
 from flask import Flask
 from flask import jsonify
-from flask import request
 from . import __version__
 
 
@@ -24,6 +23,7 @@ OPT = envopt(__doc__, env_prefix="MRMET")
 
 
 def config():
+    """ Helper to get server config. """
     return dict(furi.map(OPT["--config"]))
 
 @APP.route("/")

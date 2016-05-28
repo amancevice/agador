@@ -1,0 +1,14 @@
+language: python
+python:
+  - "2.7"
+install:
+  - pip install tox
+script:
+  - tox
+deploy:
+  provider: pypi
+  user: amancevice
+  password:
+    secure: fN8pORoubOL5+Gne5bbQrnzTdE7Ekm7W0tM0eiFauU8kCCIiTIlsEnCvWm0i+iFvPHiy89X/UFguow05K/pL7Pgi2RaBw1uplNH57H1e+ctjwuL0gJvWEMUKEXA/eAAs9+W7GLoQHMM8wwrFsBpMFxtowHIxpKH/6U6+IViQJ2ENUhS2GL8PynW4LW0yaqvwzqbw45EtFbMJvPQKOhH73IS7ESiiBxDA60UsmnZoORbact+SHb6tLbCIIkPeATAmhLGy5QyzVwVWNhRiNBNuACqNZDX0M66coRyGuY1WqTQl5PHZ0jZMPJpZ6cD9kYdsfTTg9UYVlPDcQFQyZjf9Vf2be0FPuSTMTnjiMkYeCvV0C1VAZCU4VIy53Y173/6EtkqSPxv2jFb2KYhOAxq/goHSTInfjvdnJt3mhK8Y9hprXCtAP1BVesXSXOZPXyT/bT27q2fwwHo4SLevl20V20q0PxlY7i3hLTU4GvpLAUpUu3Wrxx1xtnVPW/SgRToe+mAxz5ZRtQpWCQzg0zatfhCbd3u3rbjxT8Ic2Xv+DP7Z9sgc0mFh3AGDGrJfmxzEyeOnOsoLrDBnwPi7jp07ez+vZ3beAKq/9c7lxE9GMFHB1v2a7Kapjtbu3PoDOqMJFyWLMHACzptNulC/qxbWqbCzS4sGE58WoMtDLmWKgFs=
+  on:
+    tags: true

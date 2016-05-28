@@ -3,9 +3,9 @@
 
 import importlib
 import os
+from urlparse import urlparse
 
 import requests
-from urlparse import urlparse
 from .defaults import HOST
 from .defaults import PORT
 from .defaults import SCHEME
