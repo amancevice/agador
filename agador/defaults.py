@@ -1,6 +1,9 @@
 """ Agador defaults. """
 
 
-HOST = "localhost"
-PORT = 9999
-SCHEME = "http"
+import os
+
+
+HOST = os.getenv("AGADOR_HOST", "localhost")
+PORT = os.getenv("AGADOR_PORT", 9999)
+SCHEME = os.getenv("AGADOR_SCHEME", "http")

@@ -24,7 +24,10 @@ OPT = envopt(__doc__, env_prefix="MRMET")
 
 def config():
     """ Helper to get server config. """
-    return dict(furi.map(OPT["--config"]))
+    try:
+        return dict(furi.map(OPT["--config"]))
+    except AttributeError:
+        return {}
 
 @APP.route("/")
 def version():
