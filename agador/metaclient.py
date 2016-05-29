@@ -40,10 +40,10 @@ class AgadorClient(object):
             Returns:
                 JSON response.
         """
-        if self.host.endswith("consul"):
-            return self._consul_response(svc_name)
-        else:
-            return self._response(svc_name)
+        #if self.host.endswith("consul"):
+        #    return self._consul_response(svc_name)
+        #else:
+        return self._response(svc_name)
 
     def _response(self, svc_name):
         """ Helper to get response from agador server. """

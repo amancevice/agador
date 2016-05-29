@@ -9,5 +9,5 @@ dynamodb:
   object: boto3.resource
   args:
     service_name: dynamodb
-    endpoint_url: http://dynamodb:8000/
+    endpoint_url: http://dynamodb.service.consul:8000/
     region_name: us-east-1

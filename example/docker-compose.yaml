@@ -1,0 +1,21 @@
+version: '2'
+services:
+  influxdb:
+    image: influxdb
+    hostname: influxdb
+    domainname: infludb.service.consul
+  dynamodb:
+    image: ryanratcliff/dynamodb
+    hostname: dynamodb
+    domainname: dynamodb.service.consul
+  agador:
+    image: amancevice/agador
+    command: --config /home/agador/example.yaml
+    volumes:
+      - ./example.yaml:/home/agador/example.yaml
+  client:
+    build: .
+    links:
+      - agador
+      - influxdb
+      - dynamodb

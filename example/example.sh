@@ -11,9 +11,6 @@ docker network create --driver bridge agador > /dev/null
 
 echo "Starting influxdb"
 docker run --detach --name influx \
-    --volume /mnt/db/data:/var/lib/influxdb/data \
-    --volume /mnt/db/meta:/var/lib/influxdb/meta \
-    --volume /mnt/influx/wal:/var/lib/influxdb/wal \
     --hostname influx \
     --net agador \
     influxdb > /dev/null
