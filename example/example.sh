@@ -14,15 +14,12 @@ docker run --detach --name influx \
     --volume /mnt/db/data:/var/lib/influxdb/data \
     --volume /mnt/db/meta:/var/lib/influxdb/meta \
     --volume /mnt/influx/wal:/var/lib/influxdb/wal \
-    --publish 8083:8083 \
-    --publish 8086:8086 \
     --hostname influx \
     --net agador \
     influxdb > /dev/null
 
 echo "Starting dynamodb"
 docker run --detach --name dynamodb \
-    --publish 8000:8000 \
     --hostname dynamodb \
     --net agador \
     ryanratcliff/dynamodb > /dev/null
@@ -33,10 +30,9 @@ printf "${TEAL}$(cat ./example.yaml)${NC}"
 echo
 docker run --detach --name agador \
     --volume $(pwd)/example.yaml:/home/agador/example.yaml \
-    --publish 9999:9999 \
     --hostname agador \
     --net agador \
-    agador --config /home/agador/example.yaml > /dev/null
+    amancevice/agador --config /home/agador/example.yaml > /dev/null
 
 echo
 echo "Running example Python:"

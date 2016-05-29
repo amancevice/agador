@@ -1,5 +1,7 @@
 # Agador Metaservice for Microservices
 
+<img src="https://travis-ci.org/amancevice/agador.svg?branch=master"/>
+
 Agador is a microservice for configuring a suite of other microservices. Once deployed with a service configuration, the agador server can supply a client with the information needed to instantiate a client for that particular service.
 
 

@@ -1,17 +1,13 @@
 --- # Agador Metaervice Configuration
 influxdb:
-  module:
-    name: "influxdb"
-  class: "InfluxDBClient"
+  object: influxdb.InfluxDBClient
   args:
-    host: "influxdb.service.consul"
+    host: influxdb.service.consul
     port: 8086
 
 dynamodb:
-  module:
-    name: "boto3"
-  class: "resource"
+  object: boto3.resource
   args:
-    service_name: "dynamodb"
-    endpoint_url: "http://dynamodb:8000/"
-    region_name: "us-east-1"
+    service_name: dynamodb
+    endpoint_url: http://dynamodb:8000/
+    region_name: us-east-1
