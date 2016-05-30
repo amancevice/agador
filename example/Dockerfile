@@ -1,11 +1,9 @@
-FROM amancevice/agador
+FROM alpine
 MAINTAINER smallweirdnum@gmail.com
 
-USER root
+RUN apk add --update curl python-dev py-pip build-base
+RUN pip install agador boto3 influxdb jupyter
 
-RUN pip install influxdb
+WORKDIR /example
 
-COPY example.py /example.py
-
-ENTRYPOINT ["python"]
-CMD ["/example.py"]
+EXPOSE 8888

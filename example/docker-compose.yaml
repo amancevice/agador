@@ -3,19 +3,26 @@ services:
   influxdb:
     image: influxdb
     hostname: influxdb
-    domainname: infludb.service.consul
+    domainname: service.consul
   dynamodb:
     image: ryanratcliff/dynamodb
     hostname: dynamodb
-    domainname: dynamodb.service.consul
+    domainname: service.consul
   agador:
     image: amancevice/agador
+    hostname: agador
+    domainname: service.consul
     command: --config /home/agador/example.yaml
     volumes:
       - ./example.yaml:/home/agador/example.yaml
   client:
     build: .
+    command: sh -c "jupyter notebook --ip=* --no-browser"
+    ports:
+      - "8888:8888"
+    volumes:
+      - ./example.ipynb:/example/example.ipynb
     links:
-      - agador
-      - influxdb
-      - dynamodb
+      - agador:agador.service.consul
+      - influxdb:influxdb.service.consul
+      - dynamodb:dynamodb.service.consul

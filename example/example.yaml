@@ -4,6 +4,7 @@ influxdb:
   args:
     host: influxdb.service.consul
     port: 8086
+    database: example
 
 dynamodb:
   object: boto3.resource
