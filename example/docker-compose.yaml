@@ -3,15 +3,15 @@ services:
   influxdb:
     image: influxdb
     hostname: influxdb
-    domainname: service.consul
-  dynamodb:
-    image: ryanratcliff/dynamodb
-    hostname: dynamodb
-    domainname: service.consul
+    domainname: service.com
+  redis:
+    image: redis
+    hostname: redis
+    domainname: service.com
   agador:
     image: amancevice/agador
     hostname: agador
-    domainname: service.consul
+    domainname: service.com
     command: --config /home/agador/example.yaml
     volumes:
       - ./example.yaml:/home/agador/example.yaml
@@ -23,6 +23,6 @@ services:
     volumes:
       - ./example.ipynb:/example/example.ipynb
     links:
-      - agador:agador.service.consul
-      - influxdb:influxdb.service.consul
-      - dynamodb:dynamodb.service.consul
+      - agador:agador.service.com
+      - influxdb:influxdb.service.com
+      - redis:redis.service.com
