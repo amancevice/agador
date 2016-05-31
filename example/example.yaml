@@ -2,13 +2,13 @@
 influxdb:
   object: influxdb.InfluxDBClient
   args:
-    host: influxdb.service.consul
+    host: influxdb.service.com
     port: 8086
     database: example
 
-dynamodb:
-  object: boto3.resource
+redis:
+  object: redis.StrictRedis
   args:
-    service_name: dynamodb
-    endpoint_url: http://dynamodb.service.consul:8000/
-    region_name: us-east-1
+    host: redis.service.com
+    port: 6379
+    db: 0

@@ -15,7 +15,7 @@ services:
     command: --config /home/agador/example.yaml
     volumes:
       - ./example.yaml:/home/agador/example.yaml
-  client:
+  notebook:
     build: .
     command: sh -c "jupyter notebook --ip=* --no-browser"
     ports:
