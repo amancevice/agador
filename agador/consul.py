@@ -17,6 +17,7 @@ STRING = 2
 
 
 class ConsulClient(metaclient.AgadorClient):
+    """ Cosul KV Client. """
     def _response(self, svc_name):
         """ Helper to get response from consul key value store. """
         args = "v1", "kv", "agador", "?recurse"
@@ -24,11 +25,13 @@ class ConsulClient(metaclient.AgadorClient):
         return get_config(endpoint)[svc_name]
 
 
+# pylint: disable=redefined-outer-name
 def client(host=defaults.HOST, port=defaults.PORT, scheme=defaults.SCHEME):
     """ Get MetaClient """
     return ConsulClient(host, port, scheme)
 
 
+# pylint: disable=redefined-outer-name
 def response(svc_name, host=defaults.HOST, port=defaults.PORT, scheme=defaults.SCHEME):
     """ Helper to get service. """
     return client(host, port, scheme).response(svc_name)
@@ -53,10 +56,6 @@ def get_config(endpoint="http://localhost:8500/v1/kv/agador/?recurse"):
         # Get typed value
         val = base64.b64decode(item["Value"])
         typ = item["Flags"]
-        if typ == FLOAT:
-            val = float(val)
-        elif typ == INT:
-            val = int(val)
 
         # Add to config
         service, obj, arg = item["Key"].split("/")[1:]
@@ -65,7 +64,12 @@ def get_config(endpoint="http://localhost:8500/v1/kv/agador/?recurse"):
         if obj not in config[service]:
             config[service][obj] = {}
         if arg not in config[service][obj]:
-            config[service][obj][arg] = val
+            if typ == FLOAT:
+                config[service][obj][arg] = float(val)
+            elif typ == INT:
+                config[service][obj][arg] = int(val)
+            else:
+                config[service][obj][arg] = str(val)
 
     return config
 
@@ -95,5 +99,12 @@ def load_config(endpoint="http://localhost:8500/v1/kv/agador", **config):
 
 
 def load_key(path, value, **extras):
+    """ Load a key into consul
+
+        Arguments:
+            path   (str):   URL to consul KV key
+            value  (str):   Consul key value
+            extras (dict):  Extra consul values to set (eg, flags)
+    """
     path += "?%s" % urllib.urlencode(extras.items())
     return requests.put(path, value)
