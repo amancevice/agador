@@ -6,7 +6,7 @@ from . import defaults
 from . import metaclient
 
 
-__version__ = "0.0.10"
+__version__ = "0.0.11"
 
 
 def client(host=defaults.HOST, port=defaults.PORT, scheme=defaults.SCHEME):

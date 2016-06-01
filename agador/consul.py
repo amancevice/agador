@@ -64,7 +64,7 @@ class ConsulClient(metaclient.AgadorClient):
             # Recurse on config
             try:
                 key = os.path.join(endpoint, key)
-                self.load_config(key, **val)
+                self.load_config(val, key)
 
             # Load config
             except TypeError:
@@ -104,7 +104,7 @@ def service(svc_name, host=defaults.HOST, port=defaults.PORT, scheme=defaults.SC
     return client(host, port, scheme).service(svc_name)
 
 
-def load_config(config, endpoint=defaults.KVPATH, host=defaults.HOST,
-                port=defaults.PORT, scheme=defaults.SCHEME):
+def load_config(config, endpoint=defaults.KVPATH, host=defaults.HOST, port=defaults.PORT,
+                scheme=defaults.SCHEME):
     """ Load configuration into consul. """
     return client(host, port, scheme).load_config(config, endpoint)
