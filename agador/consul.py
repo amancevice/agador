@@ -84,7 +84,7 @@ class ConsulClient(metaclient.AgadorClient):
                 extras (dict):  Extra consul values to set (eg, flags)
         """
         path += "?%s" % urllib.urlencode(extras.items())
-        return requests.put(os.path.join(self.url.geturl(), path), value)
+        return requests.put(os.path.join(self.url.geturl(), path.lstrip('/')), value)
 
 
 # pylint: disable=redefined-outer-name
