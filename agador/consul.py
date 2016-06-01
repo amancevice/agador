@@ -28,7 +28,8 @@ class ConsulClient(metaclient.AgadorClient):
                 endpoint (str):  URL of consul agent KV store
         """
         config = {}
-        json = requests.get(os.path.join(self.url.geturl(), endpoint)).json()
+        url = os.path.join(self.url.geturl(), endpoint.lstrip('/'), "?recurse")
+        json = requests.get(url).json()
         for item in json:
 
             # Get typed value
