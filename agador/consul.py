@@ -105,6 +105,6 @@ def service(svc_name, host=defaults.HOST, port=defaults.PORT, scheme=defaults.SC
 
 
 def load_config(config, endpoint=defaults.KVPATH, host=defaults.HOST,
-    port=defaults.PORT, scheme=defaults.SCHEME):
+                port=defaults.PORT, scheme=defaults.SCHEME):
     """ Load configuration into consul. """
     return client(host, port, scheme).load_config(config, endpoint)

@@ -27,7 +27,7 @@ services:
       - redis:redis.service.com
   consul_loader:
     build: .
-    command: python -c "import agador, yaml; agador.consul.client().load_config(yaml.load(open('/example/example.yaml')))"
+    command: python -c "import agador, yaml; agador.consul.load_config(yaml.load(open('/example/example.yaml')))"
     volumes:
       - ./example.ipynb:/example/example.ipynb
       - ./example.yaml:/example/example.yaml
