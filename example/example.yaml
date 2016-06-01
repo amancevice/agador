@@ -1,14 +1,12 @@
 --- # Agador Metaervice Configuration
 influxdb:
-  object: influxdb.InfluxDBClient
-  args:
+  influxdb.InfluxDBClient:
     host: influxdb.service.com
     port: 8086
     database: example
 
 redis:
-  object: redis.StrictRedis
-  args:
+  redis.StrictRedis:
     host: redis.service.com
     port: 6379
     db: 0

@@ -8,13 +8,13 @@ services:
     image: redis
     hostname: redis
     domainname: service.com
-  agador:
-    image: amancevice/agador
-    hostname: agador
+  consul:
+    image: consul
+    hostname: consul
     domainname: service.com
-    command: --config /home/agador/example.yaml
-    volumes:
-      - ./example.yaml:/home/agador/example.yaml
+    command: agent -dev -client 0.0.0.0
+    ports:
+      - "8500:8500"
   notebook:
     build: .
     command: sh -c "jupyter notebook --ip=* --no-browser"
@@ -23,6 +23,6 @@ services:
     volumes:
       - ./example.ipynb:/example/example.ipynb
     links:
-      - agador:agador.service.com
+      - consul:consul.service.com
       - influxdb:influxdb.service.com
       - redis:redis.service.com

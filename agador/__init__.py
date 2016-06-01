@@ -1,11 +1,12 @@
 """ Agador Metaservice """
 
 
-from . import metaclient
+from . import consul
 from . import defaults
+from . import metaclient
 
 
-__version__ = "0.0.4"
+__version__ = "0.0.5"
 
 
 def client(host=defaults.HOST, port=defaults.PORT, scheme=defaults.SCHEME):
