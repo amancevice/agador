@@ -7,7 +7,7 @@
         -c --config URI  # Service config URI
         -d --debug       # Run in debug mode
         -h --host HOST   # Host IP [default: 0.0.0.0]
-        -p --port PORT   # Port no [default: 9999]
+        -p --port PORT   # Port no [default: 8500]
 """
 
 

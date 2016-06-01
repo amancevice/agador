@@ -1,5 +1,10 @@
 version: '2'
 services:
+  consul:
+    image: consul
+    hostname: consul
+    domainname: service.com
+    command: agent -dev -client 0.0.0.0
   influxdb:
     image: influxdb
     hostname: influxdb
@@ -8,13 +13,6 @@ services:
     image: redis
     hostname: redis
     domainname: service.com
-  consul:
-    image: consul
-    hostname: consul
-    domainname: service.com
-    command: agent -dev -client 0.0.0.0
-    ports:
-      - "8500:8500"
   notebook:
     build: .
     command: sh -c "jupyter notebook --ip=* --no-browser"

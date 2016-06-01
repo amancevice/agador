@@ -52,12 +52,12 @@ class ConsulClient(metaclient.AgadorClient):
 
         return config
 
-    def load_config(self, endpoint=defaults.KVPATH, **config):
+    def load_config(self, config, endpoint=defaults.KVPATH):
         """ Load a configuration mapping into consul.
 
             Arguments:
-                endpoint (str):   URL of consul agent KV store
                 config   (dict):  Agador configuration dict
+                endpoint (str):   URL of consul agent KV store
         """
         for key, val in config.iteritems():
 
@@ -74,7 +74,6 @@ class ConsulClient(metaclient.AgadorClient):
                     self.load_key(key, str(val), flags=INT)
                 else:
                     self.load_key(key, str(val), flags=STRING)
-
 
     def load_key(self, path, value, **extras):
         """ Load a key into consul
@@ -103,3 +102,9 @@ def response(svc_name, host=defaults.HOST, port=defaults.PORT, scheme=defaults.S
 def service(svc_name, host=defaults.HOST, port=defaults.PORT, scheme=defaults.SCHEME):
     """ Helper to get service. """
     return client(host, port, scheme).service(svc_name)
+
+
+def load_config(config, endpoint=defaults.KVPATH, host=defaults.HOST,
+    port=defaults.PORT, scheme=defaults.SCHEME):
+    """ Load configuration into consul. """
+    return client(host, port, scheme).load_config(config, endpoint)
