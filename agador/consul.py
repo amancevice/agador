@@ -28,7 +28,7 @@ class ConsulClient(metaclient.AgadorClient):
                 endpoint (str):  URL of consul agent KV store
         """
         config = {}
-        json = requests.get(os.path.join(self.url, endpoint)).json()
+        json = requests.get(os.path.join(self.url.geturl(), endpoint)).json()
         for item in json:
 
             # Get typed value
@@ -84,7 +84,7 @@ class ConsulClient(metaclient.AgadorClient):
                 extras (dict):  Extra consul values to set (eg, flags)
         """
         path += "?%s" % urllib.urlencode(extras.items())
-        return requests.put(os.path.join(self.url, path), value)
+        return requests.put(os.path.join(self.url.geturl(), path), value)
 
 
 # pylint: disable=redefined-outer-name

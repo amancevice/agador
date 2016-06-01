@@ -22,6 +22,7 @@ services:
       - "8888:8888"
     volumes:
       - ./example.ipynb:/example/example.ipynb
+      - ./example.yaml:/example/example.yaml
     links:
       - consul:consul.service.com
       - influxdb:influxdb.service.com
