@@ -25,3 +25,13 @@ services:
       - consul:consul.service.com
       - influxdb:influxdb.service.com
       - redis:redis.service.com
+  consul_loader:
+    build: .
+    command: python -c "import agador, yaml; agador.consul.client().load_config(yaml.load(open('/example/example.yaml')))"
+    volumes:
+      - ./example.ipynb:/example/example.ipynb
+      - ./example.yaml:/example/example.yaml
+    links:
+      - consul:consul.service.com
+      - influxdb:influxdb.service.com
+      - redis:redis.service.com

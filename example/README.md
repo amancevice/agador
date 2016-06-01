@@ -68,7 +68,7 @@ notebook:
 Start a composed group of containers with:
 
 ```bash
-docker-compose up -d
+docker-compose up
 ```
 
 Navigate your browser to [http://localhost:8888](http://localhost:8888) to view an IPython notebook sandbox playground
