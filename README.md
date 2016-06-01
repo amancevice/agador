@@ -42,6 +42,12 @@ config = {
 agador.consul.load_config(config)
 ```
 
+By default agador stores its config under the prefix `/v1/kv/agador/<service>/<object>/<arg>`. The `flags` value of the key is used to determine the type:
+
+* `1` is a float
+* `2` is an int
+* `3` is a string
+
 
 ## Agador Server
 
