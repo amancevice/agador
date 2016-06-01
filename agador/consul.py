@@ -67,7 +67,7 @@ class ConsulClient(metaclient.AgadorClient):
                 self.load_config(val, key)
 
             # Load config
-            except TypeError:
+            except AttributeError:
                 if isinstance(val, float):
                     self.load_key(key, str(val), flags=FLOAT)
                 elif isinstance(val, int):
