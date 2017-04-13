@@ -6,11 +6,11 @@ services:
     domainname: service.com
     command: agent -dev -client 0.0.0.0
   influxdb:
-    image: influxdb
+    image: influxdb:alpine
     hostname: influxdb
     domainname: service.com
   redis:
-    image: redis
+    image: redis:alpine
     hostname: redis
     domainname: service.com
   notebook:

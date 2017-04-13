@@ -35,8 +35,8 @@ def version():
     return jsonify(version=__version__, services=config())
 
 
-@APP.route("/<svc>")
-def service(svc):
+@APP.route("/v1/kv/agador/python/<svc>/<vsn>")
+def service(svc, vsn):
     """ Get microservice. """
     return jsonify(service=config().get(svc, {}))
 

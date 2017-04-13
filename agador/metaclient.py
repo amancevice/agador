@@ -7,44 +7,53 @@ import pydoc
 from urlparse import urlparse
 
 import requests
-from .defaults import HOST
-from .defaults import PORT
-from .defaults import SCHEME
 
 
 class AgadorClient(object):
     """ Metaservice client.
 
         Arguments:
-            host (str):    SyMUX microservice host
-            port (int):    SyMUX microservice port
-            scheme (str):  SyMUX microservice scheme
+            host   (str):  Agador host
+            port   (int):  Agador port
+            scheme (str):  Agador scheme
+            path   (str):  Agador path
     """
-    def __init__(self, host=HOST, port=PORT, scheme=SCHEME):
-        self.host = host
-        self.port = port
-        self.scheme = scheme
+    def __init__(self, host, port, scheme, path):
+        self.url = urlparse("%(scheme)s://%(host)s:%(port)s/%(path)s" \
+            % {"scheme": scheme, "host": host, "port": port, "path": path})
 
-    @property
-    def url(self):
-        """ Helper to get client URL. """
-        return urlparse("%(scheme)s://%(host)s:%(port)s" \
-            % {'scheme': self.scheme, 'host': self.host, 'port': self.port})
 
-    def response(self, svc_name):
+    def service(self, svc_name, version):
+        """ Get service.
+
+            Arguments:
+                svc_name (str):  Name of service
+                version  (str):  Version of service
+
+            Returns:
+                Instance of service client.
+        """
+        svc_def = self.response(svc_name)
+        for path, args in svc_def.iteritems():
+            return pydoc.locate(path)(**args)
+
+    def response(self, svc_name, version):
         """ Get service response.
 
             Arguments:
                 svc_name (str):  Name of service
+                version  (str):  Version of service
 
             Returns:
                 JSON response.
         """
-        return self._response(svc_name)
+        if self.url.host.endswith("consul"):
+            return self._consul_response(svc_name, version)
+        return self._response(svc_name, version)
 
-    def _response(self, svc_name):
+    def _response(self, svc_name, version):
         """ Helper to get response from agador server. """
-        endpoint = os.path.join(self.url.geturl(), svc_name)
+        endpoint = os.path.join(self.url.geturl(), svc_name, version)
         response = requests.get(endpoint)
         if response.ok:
             try:
@@ -53,16 +62,4 @@ class AgadorClient(object):
                 raise requests.HTTPError("Malformed JSON")
         raise requests.HTTPError("Bad Response [%d]" % response.status_code)
 
-    def service(self, svc_name):
-        """ Get service.
 
-            Arguments:
-                svc_name (str):  Name of service
-
-            Returns:
-                Instance of service client.
-        """
-        svc = self.response(svc_name)
-        for path, args in svc.iteritems():
-            obj = pydoc.locate(path)
-            return obj(**args)
